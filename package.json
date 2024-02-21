@@ -19,7 +19,9 @@
     "react-scripts": "^5.0.1",
     "redux": "^4.0.5"
   },
- 
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
     "frontend": "npm start --prefix frontend",
