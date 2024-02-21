@@ -7,19 +7,25 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.11",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.3",
+    "morgan": "^1.10.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.1",
     "redux": "^4.0.5"
   },
   "scripts": {
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
     "frontend": "npm start --prefix frontend",
-    "backend": "nodemon server.js",    "start": "react-scripts start",
+    "backend": "nodemon server.js",
+    "start": "react-scripts start",
     "build:install": "npm install",
-    "build": "npm run build:install && react-scripts build",    
+    "build": "npm run build:install && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -38,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
