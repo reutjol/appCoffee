@@ -15,9 +15,7 @@
     "redux": "^4.0.5"
   },
 
-  "engines": {
-    "node": "20.10.0"
-  },
+ 
   "scripts": {
     "build:install": "npm install",
     "start": "react-scripts start",
