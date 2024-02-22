@@ -26,7 +26,7 @@
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
     "frontend": "cd frontend && npm start",
     "backend": "nodemon server.js",
-    "start": "react-scripts start",
+    "start": "node server.js",
     "build:install": "npm install",
     "build": "npm run build:install && react-scripts build",
     "test": "react-scripts test",
