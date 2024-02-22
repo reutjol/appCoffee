@@ -28,7 +28,7 @@
     "backend": "nodemon server.js",
     "start": "node server.js",
     "build:install": "npm install",
-    "build": "npm run build:install && react-scripts build",
+    "build": "npm run build:install",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
