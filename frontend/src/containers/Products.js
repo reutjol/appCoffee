@@ -30,7 +30,9 @@ class Products extends PureComponent {
 
     if (search === "") {
       this.setState({ category: "All" });
-      this.fetchPosts("api/items");
+      this.fetchPosts(
+        "https://cofee-shop-7170efe7f047.herokuapp.com/api/items/api/items"
+      );
     } else {
       if (this.state.category === "All") {
         const uri = "api/items/name/" + search;
@@ -64,7 +66,9 @@ class Products extends PureComponent {
 
   fetchPosts = async (url) => {
     this.setState({ loading: true });
-    const res = await axios.get(url);
+    const res = await axios.get(
+      "https://cofee-shop-7170efe7f047.herokuapp.com/api/items"
+    );
     // console.log("got data",res.data);
     this.setState({ products: res.data });
     this.setState({ loading: false });

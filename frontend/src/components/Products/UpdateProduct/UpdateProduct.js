@@ -24,7 +24,9 @@ class UpdateProduct extends React.PureComponent {
     // console.log("id is ", id);
 
     const fetchPosts = async () => {
-      const res = await axios.get("/api/items/" + id);
+      const res = await axios.get(
+        "https://cofee-shop-7170efe7f047.herokuapp.com/api/items/" + id
+      );
       //   console.log(res.data);
       if (res.status === 200) {
         var item = res.data;
@@ -36,7 +38,7 @@ class UpdateProduct extends React.PureComponent {
           category: item.category,
           price: item.price,
           units: item.units,
-          softDelete:item.softDelete
+          softDelete: item.softDelete,
         });
         console.log("Item found in database", item);
       } else {
@@ -88,7 +90,7 @@ class UpdateProduct extends React.PureComponent {
         break;
       case "softDelete":
         this.setState({
-          softDelete: event.target.checked
+          softDelete: event.target.checked,
         });
         break;
       default:
@@ -119,7 +121,7 @@ class UpdateProduct extends React.PureComponent {
         category,
         price,
         units,
-        softDelete
+        softDelete,
       });
       var userAuth = JSON.parse(localStorage.getItem("userAuthDetails"));
       const config = {
