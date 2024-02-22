@@ -3,9 +3,11 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
 const config = require("config");
-// var cors = require("cors");
+var cors = require("cors");
 
 var app = express();
+app.use(cors());
+
 const port = process.env.PORT || 5000;
 
 // view engine setup
