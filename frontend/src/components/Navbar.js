@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CartList from "../components/Cart/CartList";
 import Authorise from "./Authorise/Authorise";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 class Navbar extends Component {
   //coming here means user is authenticated
@@ -34,19 +34,9 @@ class Navbar extends Component {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="/Home">
-                Home <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/About">
-                About
-              </a>
-            </li>
             <li className="nav-item">
               <a className="nav-link" href="/Shop">
-                Shop
+                Shop <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="nav-item">
