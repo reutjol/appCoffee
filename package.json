@@ -22,7 +22,7 @@
 
   "scripts": {
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "frontend": "npm start --prefix frontend",
+    "frontend": "cd frontend && npm start",
     "backend": "nodemon server.js",
     "start": "react-scripts start",
     "build:install": "npm install",
