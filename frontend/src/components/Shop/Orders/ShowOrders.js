@@ -14,7 +14,7 @@ class ShowOrders extends PureComponent {
 
   paginate = (pageNumber) => this.setState({ currentPage: pageNumber });
 
-  fetchPosts = async (url,token) => {
+  fetchPosts = async (url, token) => {
     this.setState({ loading: true });
 
     const config = {
@@ -32,7 +32,10 @@ class ShowOrders extends PureComponent {
     var userAuth = JSON.parse(localStorage.getItem("userAuthDetails"));
     var token = userAuth.user.token;
     var userId = userAuth.user.user.id;
-    this.fetchPosts("api/orders/"+userId,token);
+    this.fetchPosts(
+      "https://cofee-shop-7170efe7f047.herokuapp.com/api/orders/" + userId,
+      token
+    );
   }
 
   render() {
@@ -58,7 +61,10 @@ class ShowOrders extends PureComponent {
                 </li>
                 <ul className="list-group my-3">
                   {user.order.map((order) => (
-                    <li key={order.id} className="list-group-item list-group-item-info">
+                    <li
+                      key={order.id}
+                      className="list-group-item list-group-item-info"
+                    >
                       Item name:{order.name}, Price:${order.price}, Units
                       Bought:{order.units}
                     </li>

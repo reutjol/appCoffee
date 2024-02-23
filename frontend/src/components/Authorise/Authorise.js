@@ -21,18 +21,24 @@ export default class Authorise extends React.PureComponent {
         "Content-Type": "application/json",
       },
     };
-    axios.post("/api/auth/", userData, config).then(
-      (res) => {
-        console.log(res.data, res.status);
-        var data = { user: res.data, isAuthorised: true };
-        this.props.authUser(data);
-        this.setState({ isAuthenticated: true });
-      },
-      (err) => {
-        this.setState({ error: "Invalid Credentials" });
-        console.log(err);
-      }
-    );
+    axios
+      .post(
+        "https://cofee-shop-7170efe7f047.herokuapp.com/api/auth/",
+        userData,
+        config
+      )
+      .then(
+        (res) => {
+          console.log(res.data, res.status);
+          var data = { user: res.data, isAuthorised: true };
+          this.props.authUser(data);
+          this.setState({ isAuthenticated: true });
+        },
+        (err) => {
+          this.setState({ error: "Invalid Credentials" });
+          console.log(err);
+        }
+      );
   };
 
   saveNewUser = (userData) => {
@@ -51,7 +57,8 @@ export default class Authorise extends React.PureComponent {
       },
       (err) => {
         this.setState({ error: "Email already exists" });
-        console.log(err)}
+        console.log(err);
+      }
     );
   };
 

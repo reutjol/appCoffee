@@ -47,7 +47,7 @@ class AddProduct extends React.PureComponent {
             error: "Price should be a number.",
           });
         break;
-        case "units":
+      case "units":
         if (Number.isInteger(parseInt(incoming))) this.setState({ error: "" });
         else
           this.setState({
@@ -87,16 +87,24 @@ class AddProduct extends React.PureComponent {
           "x-auth-token": userAuth.user.token,
         },
       };
-      axios.post("/api/items/", body, config).then(
-        (res) => {
-          console.log(res.data, res.status);
-          history.push("../Shop");
-        },
-        (err) => {
-          this.setState({ error: "Item could not be inserted. Check again." });
-          console.log(err);
-        }
-      );
+      axios
+        .post(
+          "https://cofee-shop-7170efe7f047.herokuapp.com/api/items/",
+          body,
+          config
+        )
+        .then(
+          (res) => {
+            console.log(res.data, res.status);
+            history.push("../Shop");
+          },
+          (err) => {
+            this.setState({
+              error: "Item could not be inserted. Check again.",
+            });
+            console.log(err);
+          }
+        );
     }
   };
 

@@ -32,7 +32,7 @@ class CartList extends React.PureComponent {
   handleAddProduct = (product) => {
     // console.log("clicked",product);
     this.props.addToCartAction(product);
-    this.setState({orderPlaced:false});
+    this.setState({ orderPlaced: false });
   };
 
   updateStates = (cart) => {
@@ -74,16 +74,22 @@ class CartList extends React.PureComponent {
       orderTotalAmount,
     };
 
-    axios.post("/api/orders/", body, config).then(
-      (res) => {
-        console.log(res.data, res.status);
-        this.setState({orderPlaced:true});
-        localStorage.removeItem("localCart");
-        this.updateStates([]);
-        window.location.reload(true);
-      },
-      (err) => console.log(err)
-    );
+    axios
+      .post(
+        "https://cofee-shop-7170efe7f047.herokuapp.com/api/orders/",
+        body,
+        config
+      )
+      .then(
+        (res) => {
+          console.log(res.data, res.status);
+          this.setState({ orderPlaced: true });
+          localStorage.removeItem("localCart");
+          this.updateStates([]);
+          window.location.reload(true);
+        },
+        (err) => console.log(err)
+      );
   };
 
   componentDidUpdate() {

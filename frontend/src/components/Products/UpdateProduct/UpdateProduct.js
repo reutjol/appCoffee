@@ -130,7 +130,7 @@ class UpdateProduct extends React.PureComponent {
           "x-auth-token": userAuth.user.token,
         },
       };
-      var uri = "/api/items/" + id;
+      var uri = "https://cofee-shop-7170efe7f047.herokuapp.com/api/items/" + id;
       console.log(uri);
       axios.put(uri, body, config).then(
         (res) => {
