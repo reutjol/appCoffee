@@ -15,6 +15,19 @@ router.get("/:userid", auth, (req, res) => {
     .then((orders) => res.json(orders));
 });
 
+//////////////////////////////////////////////////////
+// show all orders - only the admin will have a button for that
+// by the "/xxx" ...
+// router.get("/", auth, (req, res) => {
+//   // Fetch all orders
+//   Order.find()
+//     .sort({ date: -1 })
+//     .then((orders) => res.json(orders))
+//     .catch((err) => res.status(500).json({ error: "Server error" }));
+// });
+//////////////////////////////////////////////////////
+
+
 //@Desc : Add an Order
 //@Access : Private
 //@Route: /api/orders
