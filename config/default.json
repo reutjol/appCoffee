@@ -1,0 +1,4 @@
+{
+    "mongoURI" : "mongodb+srv://reutuzan4:2024reut@coffeeorder.rxrmeni.mongodb.net/appOrder",
+    "jwtSecret" : "coffee_secret"
+}
