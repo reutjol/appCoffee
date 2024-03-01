@@ -1,18 +1,13 @@
 const express = require("express");
-const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
 const config = require("config");
 var cors = require("cors");
 
 var app = express();
-app.use(cors());
+//app.use(cors());
 
 const port = process.env.PORT || 5000;
-
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
 
 //DB configuration
 const db = config.get("mongoURI");
@@ -24,9 +19,7 @@ mongoose
   .then(() => console.log("MongoDB Mongoose connected"))
   .catch((err) => console.log(err));
 
-app.use(logger("dev"));
 app.use(express.json());
-// app.use(cors());
 app.use("/", require("./routes/index"));
 app.use("/api/items", require("./routes/api/items"));
 app.use("/api/users", require("./routes/api/users"));
