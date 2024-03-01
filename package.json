@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build": "npx babel src -d dist"
+    "build": "./node_modules/.bin/babel src -d dist",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
