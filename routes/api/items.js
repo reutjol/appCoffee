@@ -23,15 +23,14 @@ router.get("/:id", (req, res) => {
     .catch((err) => res.status(404).json({ success: false }));
 });
 
-//@Desc : Get category Items
-//@Access : Public
-//@Route: /api/items/category/:category
-router.get("/category/:category", (req, res) => {
-  // console.log("cat id",req.params.category);
-  Item.find({ category: { $regex: req.params.category, $options: "i" } })
-    .then((item) => res.json(item))
-    .catch((err) => res.status(404).json({ success: false }));
-});
+//Get category Items
+//no need because we deleted category
+// router.get("/category/:category", (req, res) => {
+//   // console.log("cat id",req.params.category);
+//   Item.find({ category: { $regex: req.params.category, $options: "i" } })
+//     .then((item) => res.json(item))
+//     .catch((err) => res.status(404).json({ success: false }));
+// });
 
 //@Desc : Get named items
 //@Access : Public
@@ -42,21 +41,20 @@ router.get("/name/:name", (req, res) => {
     .catch((err) => res.status(404).json({ success: false }));
 });
 
-//@Desc : Get named items within category
-//@Access : Public
-//@Route: /api/items/category/:category/name/:name
-router.get("/category/:category/name/:name", (req, res) => {
-  // console.log("cat id",req.params.category);
-  // console.log("name id",req.params.name);
-  Item.find({
-    $and: [
-      { category: req.params.category },
-      { name: { $regex: req.params.name, $options: "i" } },
-    ],
-  })
-    .then((item) => res.json(item))
-    .catch((err) => res.status(404).json({ success: false }));
-});
+//Get named items within category
+//no need because we deleted category
+// router.get("/category/:category/name/:name", (req, res) => {
+//   // console.log("cat id",req.params.category);
+//   // console.log("name id",req.params.name);
+//   Item.find({
+//     $and: [
+//       { category: req.params.category },
+//       { name: { $regex: req.params.name, $options: "i" } },
+//     ],
+//   })
+//     .then((item) => res.json(item))
+//     .catch((err) => res.status(404).json({ success: false }));
+// });
 
 //@Desc : Update specific Item
 //@Access : Private
@@ -66,7 +64,6 @@ router.put("/:id", auth, (req, res) => {
     name: req.body.name,
     description: req.body.description,
     img: req.body.img,
-    category: req.body.category,
     price: req.body.price,
     units: req.body.units,
     softDelete:req.body.softDelete
@@ -86,7 +83,6 @@ router.post("/", auth, (req, res) => {
     name: req.body.name,
     description: req.body.description,
     img: req.body.img,
-    category: req.body.category,
     price: req.body.price,
     units: req.body.units,
   });

@@ -4,23 +4,18 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
-//Item model
 const User = require("../../model/User_model");
 
-//@Desc : Get all Users
-//@Access : Public
-//@Route: /api/users
+// Get all Users
+// not sure if needed !
 router.get("/", (req, res) => {
   User.find().then((users) => res.json(users));
 });
 
-//@Desc : Add a User
-//@Access : Public
-//@Route: /api/users
+// Add a User
 router.post("/", (req, res) => {
   const { name, email, password } = req.body;
 
-  //validate
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please fill in required details" });
   }
@@ -40,7 +35,7 @@ router.post("/", (req, res) => {
             },
             config.get("jwtSecret"),
             {
-              expiresIn: 3600, //1hour
+              expiresIn: 3600,
             },
             (err, token) => {
               if (err) throw err;
@@ -50,7 +45,6 @@ router.post("/", (req, res) => {
                   id: user.id,
                   name: user.name,
                   email: user.email,
-                  isAdmin: user.isAdmin
                 },
               });
             }
@@ -61,9 +55,8 @@ router.post("/", (req, res) => {
   });
 });
 
-//@Desc : Delete a User
-//@Access : Public
-//@Route: /api/users/:id
+// Delete a User
+// not sure if needed !
 router.delete("/:id", (req, res) => {});
 
 module.exports = router;

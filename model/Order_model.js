@@ -4,8 +4,14 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
   user: {
-    type: Object,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
+  },
+  preferences: {
+    type: Schema.Types.ObjectId,
+    ref: 'preferences',
+    required: true
   },
   order: {
     type: Array,
