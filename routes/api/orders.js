@@ -5,9 +5,7 @@ var router = express.Router();
 //Order model
 const Order = require("../../model/Order_model");
 
-//@Desc : Get all orders for user id
-//@Access : Private
-//@Route: /api/orders
+// Get all orders for user id
 router.get("/:userid", auth, (req, res) => {
   // console.log("userid",req.params.userid);
   Order.find({'user.id':req.params.userid})
@@ -28,9 +26,7 @@ router.get("/:userid", auth, (req, res) => {
 //////////////////////////////////////////////////////
 
 
-//@Desc : Add an Order
-//@Access : Private
-//@Route: /api/orders
+// Add an Order
 router.post("/", auth, (req, res) => {
     // console.log("incoming order",req.body.order);
     // console.log("incoming user",req.body.user);
@@ -44,9 +40,7 @@ router.post("/", auth, (req, res) => {
   .catch(err => res.status(404).json(err));
 });
 
-//@Desc : Delete an order
-//@Access : Private
-//@Route: /api/orders/:id
+// Delete an order
 router.delete("/:id", auth, (req, res) => {
   Order.findByIdAndRemove(req.params.id)
     .then(() => res.json({ success: true }))

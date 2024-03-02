@@ -5,18 +5,14 @@ var router = express.Router();
 //Item model
 const Item = require("../../model/Item_model");
 
-//@Desc : Get all Items
-//@Access : Public
-//@Route: /api/items
+// Get all Items
 router.get("/", (req, res) => {
   Item.find()
     .sort({ date: -1 })
     .then((items) => res.json(items));
 });
 
-//@Desc : Get specific Item
-//@Access : Public
-//@Route: /api/items/:id
+// Get specific Item
 router.get("/:id", (req, res) => {
   Item.findById(req.params.id)
     .then((item) => res.json(item))
@@ -32,9 +28,7 @@ router.get("/:id", (req, res) => {
 //     .catch((err) => res.status(404).json({ success: false }));
 // });
 
-//@Desc : Get named items
-//@Access : Public
-//@Route: /api/items/name/:name
+// Get named items
 router.get("/name/:name", (req, res) => {
   Item.find({ name: { $regex: req.params.name, $options: "i" } })
     .then((item) => res.json(item))
@@ -56,9 +50,8 @@ router.get("/name/:name", (req, res) => {
 //     .catch((err) => res.status(404).json({ success: false }));
 // });
 
-//@Desc : Update specific Item
-//@Access : Private
-//@Route: /api/items/:id
+// Update specific Item
+// not sure if needed !
 router.put("/:id", auth, (req, res) => {
   const updateItem = {
     name: req.body.name,
@@ -75,9 +68,9 @@ router.put("/:id", auth, (req, res) => {
   });
 });
 
-//@Desc : Add an Item
-//@Access : Private
-//@Route: /api/items
+// Add an Item
+// not sure if needed !
+
 router.post("/", auth, (req, res) => {
   const newItem = new Item({
     name: req.body.name,
@@ -92,9 +85,9 @@ router.post("/", auth, (req, res) => {
     .catch((err) => res.status(404).send(err));
 });
 
-//@Desc : Hard Delete an Item
-//@Access : Private
-//@Route: /api/items/:id
+// Hard Delete an Item
+// not sure if needed !
+
 router.delete("/:id", auth, (req, res) => {
   Item.findByIdAndRemove(req.params.id)
     .then(() => res.json({ success: true }))

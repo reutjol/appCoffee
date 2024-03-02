@@ -14,6 +14,11 @@ const PreferencesSchema = new Schema({
         ref: 'items',
         required: true
     }],
+    milk: {
+        type: Schema.Types.ObjectId,
+        ref: 'milk',
+        required: true ///////////////
+    },
     is_fav:{
         type:Boolean,
         default:"false"

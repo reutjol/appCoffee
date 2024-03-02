@@ -5,12 +5,9 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 
-//Item model
 const User = require("../../model/User_model");
 
-//@Desc : Check authentic user
-//@Access : Public
-//@Route: /api/auth
+// Check authentic user
 router.post("/", (req, res) => {
   const { email, password } = req.body;
 
@@ -51,9 +48,7 @@ router.post("/", (req, res) => {
   });
 });
 
-//@Desc : Get authentic user
-//@Access : Private
-//@Route: GET /api/auth/user
+// Get authentic user
 router.get("/user", auth, (req, res) => {
   User.findById(req.user.id)
     .select("-password")
