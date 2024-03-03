@@ -8,7 +8,7 @@ const MilkSchema = new Schema({
         default:"none"
     },
     price:{
-        type:Int32Array,
+        type:Number,
         default:0
     }
 })

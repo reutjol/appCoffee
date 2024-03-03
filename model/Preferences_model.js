@@ -9,11 +9,11 @@ const PreferencesSchema = new Schema({
         ref: 'users',
         required: true
     },
-    items: [{
+    items: {
         type: Schema.Types.ObjectId,
         ref: 'items',
         required: true
-    }],
+    },
     milk: {
         type: Schema.Types.ObjectId,
         ref: 'milk',
