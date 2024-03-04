@@ -5,9 +5,7 @@ var router = express.Router();
 //Order model
 const Order = require("../../model/Order_model");
 
-//@Desc : Get all orders for user id
-//@Access : Private
-//@Route: /api/orders
+// Get all orders for user id
 router.get("/:userid", auth, (req, res) => {
   // console.log("userid",req.params.userid);
   Order.find({'user.id':req.params.userid})
@@ -15,9 +13,20 @@ router.get("/:userid", auth, (req, res) => {
     .then((orders) => res.json(orders));
 });
 
-//@Desc : Add an Order
-//@Access : Private
-//@Route: /api/orders
+//////////////////////////////////////////////////////
+// show all orders - only the admin will have a button for that
+// by the "/xxx" ...
+// router.get("/", auth, (req, res) => {
+//   // Fetch all orders
+//   Order.find()
+//     .sort({ date: -1 })
+//     .then((orders) => res.json(orders))
+//     .catch((err) => res.status(500).json({ error: "Server error" }));
+// });
+//////////////////////////////////////////////////////
+
+
+// Add an Order
 router.post("/", auth, (req, res) => {
     // console.log("incoming order",req.body.order);
     // console.log("incoming user",req.body.user);
@@ -31,11 +40,9 @@ router.post("/", auth, (req, res) => {
   .catch(err => res.status(404).json(err));
 });
 
-//@Desc : Delete an order
-//@Access : Private
-//@Route: /api/orders/:id
+// Delete an order
 router.delete("/:id", auth, (req, res) => {
-  Item.findByIdAndRemove(req.params.id)
+  Order.findByIdAndRemove(req.params.id)
     .then(() => res.json({ success: true }))
     .catch((err) => res.status(404).json({ success: false }));
 });

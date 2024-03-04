@@ -5,7 +5,7 @@ const config = require("config");
 var cors = require("cors");
 
 var app = express();
-//app.use(cors());
+app.use(cors());
 
 const port = process.env.PORT || 5000;
 
@@ -25,6 +25,9 @@ app.use("/api/items", require("./routes/api/items"));
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/orders", require("./routes/api/orders"));
+app.use("/api/milk", require("./routes/api/milk"));
+app.use("/api/preferences", require("./routes/api/preferences"));
+app.use("/api/admins", require("./routes/api/admins"));
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

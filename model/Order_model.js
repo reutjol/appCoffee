@@ -4,12 +4,14 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
   user: {
-    type: Object,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
   },
-  order: {
-    type: Array,
-    required: true,
+  preferences: {
+    type: Schema.Types.ObjectId,
+    ref: 'preferences',
+    required: true
   },
   orderTotalQuantity: {
     type: Number,
@@ -18,6 +20,10 @@ const OrderSchema = new Schema({
   orderTotalAmount: {
     type: Number,
     required: true,
+  },
+  isCurrent: {
+    type: Boolean,
+    default: true,
   },
   date: {
     type: Date,
