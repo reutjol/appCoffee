@@ -49,3 +49,5 @@ router.post("/", auth, (req, res) => {
       .then((milk) => res.json(milk))
       .catch((err) => res.status(404).send(err));
   });
+
+module.exports = router;

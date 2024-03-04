@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 const Admin = require("../../model/Admin_model");
-const Order = require('./model/Order');
+const Order = require('../../model/Order_model');
 
 // Define a function to retrieve all orders
 async function getAllOrders() {

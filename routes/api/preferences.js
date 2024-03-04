@@ -3,9 +3,9 @@ var auth = require("../../middleware/auth");
 var router = express.Router();
 
 //preferences model
-const Preferences = require('./model/Preferences_model');
-const Item = require('./model/Item_model');
-const Milk = require('./model/Milk_model');
+const Preferences = require('../../model/Preferences_model');
+const Item = require('../../model/Item_model');
+const Milk = require('../../model/Milk_model');
 
 // Function to fetch available preference options
 async function getPreferenceOptions() {
@@ -44,3 +44,5 @@ async function addPreferences(userId, items, milk, isFav, price, size) {
         throw error;
     }
 }
+
+module.exports = router;
