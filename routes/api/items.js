@@ -57,9 +57,8 @@ router.put("/:id", auth, (req, res) => {
     name: req.body.name,
     description: req.body.description,
     img: req.body.img,
+    img2: req.body.img2,
     price: req.body.price,
-    units: req.body.units,
-    softDelete:req.body.softDelete
   };
   // console.log(updateItem);
   Item.findByIdAndUpdate({ _id: req.params.id }, updateItem, (err, update) => {
@@ -76,8 +75,8 @@ router.post("/", auth, (req, res) => {
     name: req.body.name,
     description: req.body.description,
     img: req.body.img,
+    img2: req.body.img2,
     price: req.body.price,
-    units: req.body.units,
   });
   newItem
     .save()

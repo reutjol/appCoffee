@@ -8,28 +8,25 @@ const ItemSchema = new Schema({
         required:true
     },
     description:{
-        type:String
+        type:String,
+        required:true
     },
     img:{
-        type:String
+        type:String,
+        required:true
+    },
+    img2:{
+        type:String,
+        required:true
     },
     price:{
         type:Number,
         required:true,
         default:0
     },
-    units:{
+    rate:{
         type:Number,
-        require:true,
-        default:0
-    },
-    softDelete:{
-        type:Boolean,
-        default:false
-    },
-    date:{
-        type:Date,
-        default:Date.now
+        default:2
     }
 })
 

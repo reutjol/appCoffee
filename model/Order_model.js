@@ -13,10 +13,6 @@ const OrderSchema = new Schema({
     ref: 'preferences',
     required: true
   },
-  order: {
-    type: Array,
-    required: true,
-  },
   orderTotalQuantity: {
     type: Number,
     required: true,

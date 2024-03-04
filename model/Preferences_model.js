@@ -32,6 +32,16 @@ const PreferencesSchema = new Schema({
         type:String,
         required:true,
         default:"small"
+    },
+    remarks:{
+        type:String,
+        required:true,
+        default:" "
+    },
+    is_hot:{
+        type:Boolean,
+        required:true,
+        default:true
     }
 })
 

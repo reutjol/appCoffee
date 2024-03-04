@@ -32,7 +32,9 @@ async function addPreferences(userId, items, milk, isFav, price, size) {
             items: items,
             milk: milk,
             is_fav: isFav,
+            is_hot: isHot,
             price: price,
+            remarks: remarks,
             size: size
         });
         
