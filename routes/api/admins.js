@@ -68,7 +68,7 @@ router.post("/", (req, res) => {
 });
 
 // Retrieve all orders
-router.get("/orders", async (req, res) => {
+router.get("/admins/orders", async (req, res) => {
     try {
         const orders = await getAllOrders();
         res.json(orders);
