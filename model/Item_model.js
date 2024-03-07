@@ -25,7 +25,7 @@ const ItemSchema = new Schema({
         default:0
     },
     rate:{
-        type:Number,
+        type:String,
         default:2
     }
 })
