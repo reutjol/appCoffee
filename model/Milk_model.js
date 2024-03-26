@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const MilkSchema = new Schema({
     type:{
         type:String,
-        required:true
+        required:true,
         default:"none"
     },
     price:{
