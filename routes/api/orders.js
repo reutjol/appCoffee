@@ -4,24 +4,26 @@ var router = express.Router();
 
 //Order model
 const Order = require("../../model/Order_model");
+const User = require("../../model/User_model");
 
 // Get all orders for user id @Route: /api/orders
-router.get("/:userid", auth, (req, res) => {
-  if (req.user.isAdmin) {
-    Order.find()
-      .sort({ date: -1 })
-      .then(orders => res.json(orders))
-      .catch(err => res.status(500).json({ error: 'An error occurred' }));
-  } else {
-  Order.find({'user.id':req.params.userid})
-      .sort({ date: -1 })
-      .then(orders => res.json(orders))
-      .catch(err => res.status(500).json({ error: 'An error occurred' }));
+router.get("/:userid", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (user.isAdmin) {
+      const orders = await Order.find().sort({ date: -1 });
+      res.json(orders);
+    } else {
+      const orders = await Order.find({ "user.id": req.user.id }).sort({
+        date: -1,
+      });
+      res.json(orders);
+    }
+  } catch (error) {
+    console.error("Error retrieving orders:", error);
+    res.status(500).json({ msg: "Server error" });
   }
 });
-
-
-
 
 
 // Add an Order
