@@ -7,10 +7,7 @@ const router = express.Router();
 //Item model
 const User = require("../../model/User_model");
 
-//Add a User @Route: /api/users
-router.post("/", (req, res) => {
-  const { name, email, password } = req.body;
-
+//git user
 router.get("/:id", (req, res) => {
   User.findById(req.params.id)
     .then((user) => {
@@ -22,6 +19,11 @@ router.get("/:id", (req, res) => {
     .catch((err) => res.status(500).json({ message: 'Server error' }));
 });
   
+
+
+//Add a User @Route: /api/users
+router.post("/", (req, res) => {
+  const { name, email, password } = req.body;
   //validate
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please fill in required details" });
