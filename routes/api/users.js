@@ -68,7 +68,7 @@ async function getAllOrders() {
 }
 
 // Retrieve all orders
-router.get("/admins/orders", async (req, res) => {
+router.get("/users/orders", async (req, res) => {
     try {
         const orders = await getAllOrders();
         res.json(orders);
