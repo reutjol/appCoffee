@@ -13,7 +13,7 @@ router.get("/:userid", auth, (req, res) => {
       .then(orders => res.json(orders))
       .catch(err => res.status(500).json({ error: 'An error occurred' }));
   } else {
-    Order.find({ user: req.params.userid })
+  Order.find({'user.id':req.params.userid})
       .sort({ date: -1 })
       .then(orders => res.json(orders))
       .catch(err => res.status(500).json({ error: 'An error occurred' }));
