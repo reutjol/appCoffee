@@ -12,8 +12,9 @@ router.get("/:userid", auth, async (req, res) => {
       const orders = await Order.find().sort({ date: -1 });
       return res.json(orders);
     } else {
-      const orders = await Order.find({ 'user.id': req.params.userid }).sort({ date: -1 });
-      res.json(orders);
+      Order.find({'user.id':req.params.userid})
+    .sort({ date: -1 })
+    .then((orders) => res.json(orders));
     }
   } catch (error) {
     console.error('Error retrieving orders:', error);
