@@ -7,11 +7,19 @@ const Order = require("../../model/Order_model");
 
 // Get all orders for user id @Route: /api/orders
 router.get("/:userid", auth, (req, res) => {
-  // console.log("userid",req.params.userid);
-  Order.find({'user.id':req.params.userid})
-    .sort({ date: -1 })
-    .then((orders) => res.json(orders));
+  if (req.user.isAdmin) {
+    Order.find({})
+      .sort({ date: -1 })
+      .then(orders => res.json(orders))
+      .catch(err => res.status(500).json({ error: 'An error occurred' }));
+  } else {
+    Order.find({ user: req.params.userid })
+      .sort({ date: -1 })
+      .then(orders => res.json(orders))
+      .catch(err => res.status(500).json({ error: 'An error occurred' }));
+  }
 });
+
 
 
 
