@@ -4,18 +4,14 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 
+//Item model
 const User = require("../../model/User_model");
 
-// Get all Users
-// not sure if needed !
-router.get("/", (req, res) => {
-  User.find().then((users) => res.json(users));
-});
-
-// Add a User
+//Add a User @Route: /api/users
 router.post("/", (req, res) => {
   const { name, email, password } = req.body;
 
+  //validate
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please fill in required details" });
   }
@@ -35,7 +31,7 @@ router.post("/", (req, res) => {
             },
             config.get("jwtSecret"),
             {
-              expiresIn: 3600,
+              expiresIn: 3600, //1hour
             },
             (err, token) => {
               if (err) throw err;
@@ -45,6 +41,7 @@ router.post("/", (req, res) => {
                   id: user.id,
                   name: user.name,
                   email: user.email,
+                  isAdmin: user.isAdmin
                 },
               });
             }
@@ -55,8 +52,29 @@ router.post("/", (req, res) => {
   });
 });
 
-// Delete a User
-// not sure if needed !
+
+//Delete a User @Route: /api/users/:id
 router.delete("/:id", (req, res) => {});
+
+async function getAllOrders() {
+    try {
+        // Use Mongoose to find all orders
+        const orders = await Order.find();
+        return orders; // Return the array of orders
+    } catch (error) {
+        console.error('Error retrieving orders:', error);
+        throw error; // Throw the error to handle it elsewhere
+    }
+}
+
+// Retrieve all orders
+router.get("/admins/orders", async (req, res) => {
+    try {
+        const orders = await getAllOrders();
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ msg: 'Server error' });
+    }
+});
 
 module.exports = router;
