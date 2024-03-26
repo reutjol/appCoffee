@@ -11,6 +11,17 @@ const User = require("../../model/User_model");
 router.post("/", (req, res) => {
   const { name, email, password } = req.body;
 
+router.get("/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.json(user);
+    })
+    .catch((err) => res.status(500).json({ message: 'Server error' }));
+});
+  
   //validate
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please fill in required details" });
