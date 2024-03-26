@@ -13,4 +13,4 @@ const MilkSchema = new Schema({
     }
 })
 
-module.exports = Milk = mongoose.model('Milk',MilkSchema);
+module.exports = Milk = mongoose.model('milk',MilkSchema);
