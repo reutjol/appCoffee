@@ -5,13 +5,22 @@ var router = express.Router();
 //Order model
 const Order = require("../../model/Order_model");
 
-// Get all orders for user id
-router.get("/:userid", auth, (req, res) => {
-  // console.log("userid",req.params.userid);
-  Order.find({'user.id':req.params.userid})
-    .sort({ date: -1 })
-    .then((orders) => res.json(orders));
+// Get all orders for user id @Route: /api/orders
+router.get("/:userid", auth, async (req, res) => {
+  try {
+    if (req.user.isAdmin) {
+      const orders = await Order.find().sort({ date: -1 });
+      return res.json(orders);
+    } else {
+      const orders = await Order.find({ 'user.id': req.params.userid }).sort({ date: -1 });
+      res.json(orders);
+    }
+  } catch (error) {
+    console.error('Error retrieving orders:', error);
+    res.status(500).json({ msg: 'Server error' });
+  }
 });
+
 
 
 // Add an Order
