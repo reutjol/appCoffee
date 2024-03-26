@@ -8,7 +8,7 @@ const Order = require("../../model/Order_model");
 // Get all orders for user id @Route: /api/orders
 router.get("/:userid", auth, (req, res) => {
   if (req.user.isAdmin) {
-    Order.find({})
+    Order.find()
       .sort({ date: -1 })
       .then(orders => res.json(orders))
       .catch(err => res.status(500).json({ error: 'An error occurred' }));
