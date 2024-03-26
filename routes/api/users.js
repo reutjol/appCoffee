@@ -56,25 +56,4 @@ router.post("/", (req, res) => {
 //Delete a User @Route: /api/users/:id
 router.delete("/:id", (req, res) => {});
 
-async function getAllOrders() {
-    try {
-        // Use Mongoose to find all orders
-        const orders = await Order.find();
-        return orders; // Return the array of orders
-    } catch (error) {
-        console.error('Error retrieving orders:', error);
-        throw error; // Throw the error to handle it elsewhere
-    }
-}
-
-// Retrieve all orders
-router.get("/users/orders", async (req, res) => {
-    try {
-        const orders = await getAllOrders();
-        res.json(orders);
-    } catch (error) {
-        res.status(500).json({ msg: 'Server error' });
-    }
-});
-
 module.exports = router;
