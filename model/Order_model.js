@@ -6,24 +6,21 @@ const OrderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'users',
-    required: true
+    required: true,
   },
   preferences: {
     type: Schema.Types.ObjectId,
     ref: 'preferences',
-    required: true
   },
   orderTotalQuantity: {
     type: Number,
     required: true,
+    default: 0,
   },
   orderTotalAmount: {
     type: Number,
     required: true,
-  },
-  isCurrent: {
-    type: Boolean,
-    default: true,
+    default: 0,
   },
   date: {
     type: Date,
@@ -32,6 +29,7 @@ const OrderSchema = new Schema({
   status: {
     type: String,
     required: true,
+    default: "new",
   }
 });
 
