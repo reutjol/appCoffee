@@ -25,19 +25,20 @@ router.get("/:userid", auth, async (req, res) => {
   }
 });
 
-
 // Add an Order
 router.post("/", auth, (req, res) => {
-    // console.log("incoming order",req.body.order);
-    // console.log("incoming user",req.body.user);
+  // console.log("incoming order",req.body.order);
+  // console.log("incoming user",req.body.user);
   const newOrder = new Order({
-    order: req.body.order,
     user: req.body.user,
-    orderTotalAmount:req.body.orderTotalAmount,
-    orderTotalQuantity:req.body.orderTotalQuantity
+    Preferences: req.body.preferences,
+    orderTotalAmount: req.body.orderTotalAmount,
+    orderTotalQuantity: req.body.orderTotalQuantity,
   });
-  newOrder.save().then((order) => res.json(order))
-  .catch(err => res.status(404).json(err));
+  newOrder
+    .save()
+    .then((order) => res.json(order))
+    .catch((err) => res.status(404).json(err));
 });
 
 // Delete an order
