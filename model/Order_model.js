@@ -5,13 +5,16 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users',
+    ref: "users",
     required: true,
   },
-  preferences: {
-    type: Schema.Types.ObjectId,
-    ref: 'preferences',
-  },
+  preferences: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "preferences",
+      required: true,
+    },
+  ],
   orderTotalQuantity: {
     type: Number,
     required: true,
@@ -30,7 +33,7 @@ const OrderSchema = new Schema({
     type: String,
     required: true,
     default: "new",
-  }
+  },
 });
 
 module.exports = Order = mongoose.model("order", OrderSchema);
