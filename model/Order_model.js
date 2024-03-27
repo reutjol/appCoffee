@@ -4,17 +4,13 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
   user: {
-    type: Schema.Types.ObjectId,
-    ref: "users",
+    type: Object,
     required: true,
   },
-  preferences: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "preferences",
-      required: true,
-    },
-  ],
+  selected: {
+    type: Array,
+    required: true,
+  },
   orderTotalQuantity: {
     type: Number,
     required: true,
