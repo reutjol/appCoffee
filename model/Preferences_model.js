@@ -9,7 +9,7 @@ const PreferencesSchema = new Schema({
         required: true
     },
     milk: {
-        type: string,
+        type: String,
         required: true,
         default:"Ragular"
     },
