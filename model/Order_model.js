@@ -2,37 +2,38 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const PreferencesSchema = new Schema({
-  item: {
+const OrderSchema = new Schema({
+  user: {
     type: Schema.Types.ObjectId,
-    ref: "items",
+    ref: "users",
     required: true,
   },
-  milk: {
-    type: String,
-    required: true,
-    default: "Ragular",
-  },
-  price: {
+  preferences: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "preferences",
+      required: true,
+    },
+  ],
+  orderTotalQuantity: {
     type: Number,
     required: true,
     default: 0,
   },
-  size: {
+  orderTotalAmount: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  status: {
     type: String,
     required: true,
-    default: "small",
-  },
-  remarks: {
-    type: String,
-    required: true,
-    default: " ",
-  },
-  is_hot: {
-    type: Boolean,
-    required: true,
-    default: true,
+    default: "new",
   },
 });
 
-module.exports = Preferences = mongoose.model("preferences", PreferencesSchema);
+module.exports = Order = mongoose.model("order", OrderSchema);
