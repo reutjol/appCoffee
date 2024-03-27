@@ -3,48 +3,30 @@ var auth = require("../../middleware/auth");
 var router = express.Router();
 
 //preferences model
-const Preferences = require('../../model/Preferences_model');
-const Item = require('../../model/Item_model');
-const Milk = require('../../model/Milk_model');
+const Preferences = require("../../model/Preferences_model");
+const Item = require("../../model/Item_model");
 
-// Function to fetch available preference options
-async function getPreferenceOptions() {
-    try {
-        // Fetch all items and milk types from the database
-        const items = await Item.find();
-        const milks = await Milk.find();
+// Get specific reference
+router.get("/:id", (req, res) => {
+  Item.findById(req.params.id)
+    .then((item) => res.json(item))
+    .catch((err) => res.status(404).json({ success: false }));
+});
 
-        // Return the fetched options
-        return { items, milks };
-    } catch (error) {
-        console.error('Error fetching preference options:', error);
-        throw error;
-    }
-}
-
-
-// add preferences for a user
-async function addPreferences(userId, items, milk, isFav, price, size) {
-    try {
-        // Create a new preferences object
-        const newPreferences = new Preferences({
-            user: userId,
-            items: items,
-            milk: milk,
-            is_fav: isFav,
-            is_hot: isHot,
-            price: price,
-            remarks: remarks,
-            size: size
-        });
-        
-        // Save the preferences to the database
-        const preferences = await newPreferences.save();
-        return preferences;
-    } catch (error) {
-        console.error('Error adding preferences:', error);
-        throw error;
-    }
-}
+//add a preference
+router.post("/", auth, (req, res) => {
+  const newPreferences = new Preferences({
+    item: req.body.item,
+    milk: req.body.milk,
+    price: req.body.price,
+    size: req.body.size,
+    remarks: req.body.remarks,
+    is_hot: req.body.is_hot,
+  });
+  newPreferences
+    .save()
+    .then((item) => res.json(item))
+    .catch((err) => res.status(404).send(err));
+});
 
 module.exports = router;
