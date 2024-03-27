@@ -3,26 +3,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PreferencesSchema = new Schema({
-
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-        required: true
-    },
     items: {
         type: Schema.Types.ObjectId,
         ref: 'items',
         required: true
     },
     milk: {
-        type: Schema.Types.ObjectId,
-        ref: 'milk',
-        required: true ///////////////
+        type: string,
+        required: true,
+        default:"Ragular"
     },
-    is_fav:{
-        type:Boolean,
-        default:"false"
-    },
+
     price:{
         type:Number,
         required:true,
