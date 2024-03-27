@@ -31,7 +31,7 @@ router.post("/", auth, (req, res) => {
   // console.log("incoming user",req.body.user);
   const newOrder = new Order({
     user: req.body.user,
-    Preferences: req.body.preferences,
+    selected: req.body.selected,
     orderTotalAmount: req.body.orderTotalAmount,
     orderTotalQuantity: req.body.orderTotalQuantity,
   });
