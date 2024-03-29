@@ -1,84 +1,69 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const path = require("path");
-const config = require("config");
-var cors = require("cors");
-const socketIo = require("socket.io");
-const http = require("http");
-const { router: ordersRouter, eventEmitter } = require("./routes/api/orders");
+var express = require("express");
+var auth = require("../../middleware/auth");
+var router = express.Router();
+const events = require("events");
+const eventEmitter = new events.EventEmitter();
 
-var app = express();
-const server = http.createServer(app);
+//Order model
+const Order = require("../../model/Order_model");
+const User = require("../../model/User_model");
 
-const io = socketIo(server);
-
-function onNewOrder(order) {
-  io.emit("newOrder", order);
-}
-
-module.exports = { app, onNewOrder };
-
-io.on("connection", (socket) => {
-  console.log("New client connected");
-
-  eventEmitter.on("newOrder", (order) => {
-    socket.emit("newOrder", order);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
+// Get all orders for user id @Route: /api/orders
+router.get("/:userid", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (user.isAdmin) {
+      const orders = await Order.find().sort({ date: -1 });
+      res.json(orders);
+    } else {
+      const orders = await Order.find({ "user.id": req.user.id }).sort({
+        date: -1,
+      });
+      res.json(orders);
+    }
+  } catch (error) {
+    console.error("Error retrieving orders:", error);
+    res.status(500).json({ msg: "Server error" });
+  }
 });
 
-server.listen(4000, () => {
-  console.log("Listening on port 4000");
-});
-
-function onNewOrder(order) {
-  io.emit("newOrder", order); // שולחים את ההזמנה החדשה לכל הלקוחות המחוברים
-}
-
-app.use(cors());
-
-const port = process.env.PORT || 5000;
-
-//DB configuration
-const db = config.get("mongoURI");
-mongoose
-  .connect(db, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB Mongoose connected"))
-  .catch((err) => console.log(err));
-
-app.use(express.json());
-app.use("/", require("./routes/index"));
-app.use("/api/items", require("./routes/api/items"));
-app.use("/api/users", require("./routes/api/users"));
-app.use("/api/auth", require("./routes/api/auth"));
-app.use("/api/orders", ordersRouter);
-app.use("/api/preferences", require("./routes/api/preferences"));
-
-app.use(function (err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.json({ error: err.message });
-});
-
-if (process.env.NODE_ENV === "production") {
-  // Serve any static files
-  app.use(express.static("frontend/build"));
-
-  // Handle React routing, return all requests to React app
-  app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
+// Add an Order
+router.post("/", auth, (req, res) => {
+  const newOrder = new Order({
+    user: req.body.user,
+    selected: req.body.selected,
+    orderTotalAmount: req.body.orderTotalAmount,
+    orderTotalQuantity: req.body.orderTotalQuantity,
   });
-}
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+  newOrder
+    .save()
+    .then((order) => {
+      eventEmitter.emit("newOrder", order);
+      res.json(order);
+    })
+    .catch((err) => res.status(404).json(err));
+});
 
-module.exports = app;
+//update status of order
+router.put("/:id", auth, async (req, res) => {
+  const updatedOrder = await Order.findOneAndUpdate(
+    { _id: req.params.id },
+    { status: req.body.status },
+    { new: true }
+  );
+  if (!updatedOrder) {
+    res.status(404).send({ message: "Order not found" });
+  } else {
+    res.send(updatedOrder);
+  }
+});
+
+// Delete an order
+router.delete("/:id", auth, (req, res) => {
+  Order.findByIdAndRemove(req.params.id)
+    .then(() => res.json({ success: true }))
+    .catch((err) => res.status(404).json({ success: false }));
+});
+
+module.exports = { router, eventEmitter };
