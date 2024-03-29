@@ -5,6 +5,7 @@ const config = require("config");
 var cors = require("cors");
 const socketIo = require("socket.io");
 const http = require("http");
+const { router: ordersRouter, eventEmitter } = require("./routes/api/orders");
 
 var app = express();
 const server = http.createServer(app);
@@ -19,6 +20,10 @@ module.exports = { app, onNewOrder };
 
 io.on("connection", (socket) => {
   console.log("New client connected");
+
+  eventEmitter.on("newOrder", (order) => {
+    socket.emit("newOrder", order);
+  });
 
   socket.on("disconnect", () => {
     console.log("Client disconnected");
@@ -52,7 +57,7 @@ app.use("/", require("./routes/index"));
 app.use("/api/items", require("./routes/api/items"));
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
-app.use("/api/orders", require("./routes/api/orders"));
+app.use("/api/orders", ordersRouter);
 app.use("/api/preferences", require("./routes/api/preferences"));
 
 app.use(function (err, req, res, next) {
