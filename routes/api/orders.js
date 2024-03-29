@@ -1,7 +1,8 @@
 var express = require("express");
 var auth = require("../../middleware/auth");
 var router = express.Router();
-const { onNewOrder } = require("../../server");
+const events = require("events");
+const eventEmitter = new events.EventEmitter();
 
 //Order model
 const Order = require("../../model/Order_model");
@@ -38,7 +39,7 @@ router.post("/", auth, (req, res) => {
   newOrder
     .save()
     .then((order) => {
-      onNewOrder(order);
+      eventEmitter.emit("newOrder", order);
       res.json(order);
     })
     .catch((err) => res.status(404).json(err));
@@ -65,4 +66,4 @@ router.delete("/:id", auth, (req, res) => {
     .catch((err) => res.status(404).json({ success: false }));
 });
 
-module.exports = router;
+module.exports = { router, eventEmitter };
