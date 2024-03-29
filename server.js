@@ -10,6 +10,13 @@ var app = express();
 const server = http.createServer(app);
 
 const io = socketIo(server);
+
+function onNewOrder(order) {
+  io.emit("newOrder", order);
+}
+
+module.exports = { app, onNewOrder };
+
 io.on("connection", (socket) => {
   console.log("New client connected");
 
