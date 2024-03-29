@@ -1,6 +1,7 @@
 var express = require("express");
 var auth = require("../../middleware/auth");
 var router = express.Router();
+const { onNewOrder } = require("../../server");
 
 //Order model
 const Order = require("../../model/Order_model");
@@ -25,10 +26,6 @@ router.get("/:userid", auth, async (req, res) => {
   }
 });
 
-function onNewOrder(order) {
-  io.emit("newOrder", order); // שולחים את ההזמנה החדשה לכל הלקוחות המחוברים
-}
-
 // Add an Order
 router.post("/", auth, (req, res) => {
   const newOrder = new Order({
@@ -41,7 +38,6 @@ router.post("/", auth, (req, res) => {
   newOrder
     .save()
     .then((order) => {
-      // שלח את ההזמנה החדשה לכל הלקוחות המחוברים
       onNewOrder(order);
       res.json(order);
     })
