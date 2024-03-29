@@ -25,20 +25,41 @@ router.get("/:userid", auth, async (req, res) => {
   }
 });
 
+function onNewOrder(order) {
+  io.emit("newOrder", order); // שולחים את ההזמנה החדשה לכל הלקוחות המחוברים
+}
+
 // Add an Order
 router.post("/", auth, (req, res) => {
-  // console.log("incoming order",req.body.order);
-  // console.log("incoming user",req.body.user);
   const newOrder = new Order({
     user: req.body.user,
     selected: req.body.selected,
     orderTotalAmount: req.body.orderTotalAmount,
     orderTotalQuantity: req.body.orderTotalQuantity,
   });
+
   newOrder
     .save()
-    .then((order) => res.json(order))
+    .then((order) => {
+      // שלח את ההזמנה החדשה לכל הלקוחות המחוברים
+      onNewOrder(order);
+      res.json(order);
+    })
     .catch((err) => res.status(404).json(err));
+});
+
+//update status of order
+router.put("/:id", auth, async (req, res) => {
+  const updatedOrder = await Order.findOneAndUpdate(
+    { _id: req.params.id },
+    { status: req.body.status },
+    { new: true }
+  );
+  if (!updatedOrder) {
+    res.status(404).send({ message: "Order not found" });
+  } else {
+    res.send(updatedOrder);
+  }
 });
 
 // Delete an order
