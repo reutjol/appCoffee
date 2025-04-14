@@ -138,7 +138,7 @@ npm start
 
 ## 📄 License
 
-This project is part of an academic assignment at Shenkar College, developed by [Reut Uzan](https://www.linkedin.com/in/reut-uzan-096948197/).
+developed by [Reut Uzan](https://www.linkedin.com/in/reut-uzan-096948197/).
 
 ```
 
